@@ -37,14 +37,14 @@ const handleLoadNews = async (categoryId) => {
             }" alt="Movie" /></figure>
                     <div class="card-body ">
                         <h2 class="text-2xl font-bold">${news.title}</h2>
-                        <p>${news.details}</p>
-                        <div class="card-actions ">
+                        <p>${news?.details}</p>
+                        <div class="card-actions w-full">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 justify-center   items-center w-full">
                                 <!-- author section -->
                                 <div class="flex  gap-5">
                                 <div class="avatar online">
                                 <div class="w-16 rounded-full">
-                                  <img src="${news.author.img}" />
+                                  <img src="${news?.author?.img}" />
                                         </div>
                                         </div>
                                     <div class="stat-figure ">
@@ -62,11 +62,11 @@ const handleLoadNews = async (categoryId) => {
                                         </svg>
                                     </div>
                                     <div class="stat-title"> Views</div>
-                                    <div class="text-xl font-semibold ">${news.total_view}</div>
+                                    <div class="text-xl font-semibold ">${news?.total_view ? news?.total_view : 'No VIews'}</div>
                                     
                                 </div>
                                 <!-- rating section -->
-                                 <div class="stat place-items-center">
+                                 <div class="stat ">
                                     <div class="stat-title">Rating</div>
                                     <div class="text-xl font-semibold text-secondary">${news.rating.number}</div>
                                 </div>
