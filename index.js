@@ -1,14 +1,29 @@
-const handleCategory = async () => {
+const handleCategory = async (isShowAll) => {
     const response = await fetch('https://openapi.programming-hero.com/api/news/categories');
     const allData = await response.json();
 
     const data = allData.data.news_category;
 
     const tabItems = document.getElementById('tabItems')
+    const showAllBtn = document.getElementById('showAllBtn')
+    const datalength = data.length;
+    console.log(datalength);
 
-    data.forEach(category => {
+    if (datalength > 4 && !isShowAll) {
+        showAllBtn.classList.remove('hidden')
+    } else {
+        showAllBtn.classList.add('hidden')
+    }
+
+    if (!isShowAll) {
+        minData = data.slice(0, 4)
+    } else {
+        minData = data
+    }
+    minData.forEach(category => {
+        console.log(minData)
         const div = document.createElement('div');
-        // console.log(data);
+
         div.innerHTML = `
         <a onclick="handleLoadNews('${category.category_id}')" class="tab text-xl text-[#858585]">${category.category_name}</a>
         `
@@ -62,7 +77,7 @@ const handleLoadNews = async (categoryId) => {
                                         </svg>
                                     </div>
                                     <div class="stat-title"> Views</div>
-                                    <div class="text-xl font-semibold ">${news?.total_view ? news?.total_view : 'No VIews'}</div>
+                                    <div class="text-xl font-semibold ">${news?.total_view ? news?.total_view : 'No Views'}</div>
                                     
                                 </div>
                                 <!-- rating section -->
@@ -82,6 +97,11 @@ const handleLoadNews = async (categoryId) => {
         `
         cardMain.appendChild(div)
     })
+}
+
+/* show all button  */
+const handleShowAll = () => {
+    handleCategory(true)
 }
 
 handleCategory()
